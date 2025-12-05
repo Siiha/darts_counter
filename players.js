@@ -1,4 +1,4 @@
-class player {
+export class player {
     constructor(name) {
         this.points = [];
         this.name = name;
