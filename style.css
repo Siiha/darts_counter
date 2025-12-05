@@ -1,3 +1,21 @@
-h1 {
-    background-color: wheat;
-}
+        h1 {
+            background-color: wheat;
+        }
+        
+        div.player {
+            background-color: lightgray;
+            border-style: solid;
+        }
+        
+        div#infos {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px ridge black;
+        }
+        
+        form {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid black;
+            background-color: rgba(85, 85, 85, 0.2);
+        }
