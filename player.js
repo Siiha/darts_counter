@@ -11,4 +11,17 @@ export class player {
     add(point) {
         this.points.push(point);
     }
+    score() {
+        let sum = 0;
+        for (let p in this.points) {
+            sum += p;
+        }
+        return sum;
+    }
+    avg() {
+        return this.score / this.points.length;
+    }
+    scoreboard(x) {
+        return [x - this.score(), this.avg];
+    }
 }
