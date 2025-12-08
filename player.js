@@ -6,18 +6,26 @@ export class player {
     }
 
     remove(id) {
-        this.points.remove(id);
+        this.points.remove(id, 1);
     }
     add(point) {
         this.points.push(point);
     }
+    undo() {
+  return this.points.pop();
+}
+
     score() {
         let sum = 0;
-        for (let p in this.points) {
+        for (let p of this.points) {
             sum += p;
         }
         return sum;
     }
+    remaining(startingScore) {
+  return startingScore - this.score();
+}
+
     avg() {
         return this.score() / this.points.length;
     }
