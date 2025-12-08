@@ -19,9 +19,9 @@ export class player {
         return sum;
     }
     avg() {
-        return this.score / this.points.length;
+        return this.score() / this.points.length;
     }
     scoreboard(x) {
-        return [x - this.score(), this.avg];
+        return [x - this.score(), this.avg()];
     }
 }
