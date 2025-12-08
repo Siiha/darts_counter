@@ -1,35 +1,56 @@
-export class Player {
-  constructor(name, startingScore) {
-    this.name = name;
-    this.startingScore = startingScore;
-    this.points = []; 
-  }
+import { Player } from "./player.js";
 
-  addThrow(score) {
-    this.points.push(score);
-  }
+let gameType = 301;       // default
+let currentPlayer = 1;    // 1 = Player 1, 2 = Player 2
 
-  undo() {
-    return this.points.pop();
-  }
+let player1 = new Player("Player 1", gameType);
+let player2 = new Player("Player 2", gameType);
 
-  // yhteenlasketut pisteet
-  totalScored() {
-    return this.points.reduce((a, b) => a + b, 0);
-  }
+// PELIMUODON VALINTA
+document.getElementById("301").addEventListener("click", () => startGame(301));
+document.getElementById("501").addEventListener("click", () => startGame(501));
 
-  // jäljellä oleva pistemäärä (301/501 - heitetyt)
-  remaining() {
-    return this.startingScore - this.totalScored();
-  }
+function startGame(type) {
+  gameType = type;
 
-  // heittojen keskiarvo (reaaliaikainen aggregointi)
-  average() {
-    if (this.points.length === 0) return 0;
-    return Math.round((this.totalScored() / this.points.length) * 10) / 10;
-  }
+  player1 = new Player("Player 1", gameType);
+  player2 = new Player("Player 2", gameType);
 
-  reset() {
-    this.points = [];
-  }
+  currentPlayer = 1;
+  
+  console.log("Game started mode:", type);
+  updateUI();
 }
+
+// HEITON LISÄYS
+document.getElementById("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const scoreInput = document.getElementById("score");
+  const score = parseInt(scoreInput.value);
+
+  if (score < 0 || score > 180) return alert("Invalid score");
+
+  const p = currentPlayer === 1 ? player1 : player2;
+
+  // tarkista bust
+  if (p.remaining() - score < 0) {
+    alert("Bust! Cannot go below zero.");
+    return;
+  }
+
+  p.addThrow(score);
+  scoreInput.value = "";
+
+  // voitto?
+  if (p.remaining() === 0) {
+    alert(`${p.name} wins the leg!`);
+    player1.reset();
+    player2.reset();
+  }
+
+  // vuoron vaihto
+  currentPlayer = currentPlayer === 1 ? 2 : 1;
+
+  updateUI();
+});
