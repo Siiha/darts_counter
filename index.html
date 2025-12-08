@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="style.css">
     <title>Darts counter</title>
-    <script src="main.js"></script>
+    <script src="main.js" type="module"></script>
 </head>
 
 <body>
@@ -25,6 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <td id="player_1_score"></td>
                 </tbody>
             </table>
         </div>
@@ -40,15 +41,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td id="player_2_score">
+
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <form id="form">
+    <div id="form">
         <label for="score"> Score:
                     </label>
         <input type="number" id="score" name="score" min="0" max="180" required>
-        <button type="submit"> Add Score</button>
+        <button id="add"> Add Score</button>
+    </div>
 </body>
 
 </html>
