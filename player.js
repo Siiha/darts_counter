@@ -32,4 +32,7 @@ export class player {
     scoreboard(x) {
         return [x - this.score(), this.avg()];
     }
+    changeName(name) {
+        this.name = name;
+}
 }
