@@ -1,27 +1,36 @@
-export class player {
-    constructor(name) {
-        this.points = [];
-        this.name = name;
+export class Player {
+  constructor(name, startingScore) {
+    this.name = name;
+    this.startingScore = startingScore;
+    this.points = []; 
+  }
 
-    }
+  addThrow(score) {
+    this.points.push(score);
+  }
 
-    remove(id) {
-        this.points.remove(id);
-    }
-    add(point) {
-        this.points.push(point);
-    }
-    score() {
-        let sum = 0;
-        for (let p in this.points) {
-            sum += p;
-        }
-        return sum;
-    }
-    avg() {
-        return this.score() / this.points.length;
-    }
-    scoreboard(x) {
-        return [x - this.score(), this.avg()];
-    }
+  undo() {
+    return this.points.pop();
+  }
+
+  // yhteenlasketut pisteet
+  totalScored() {
+    return this.points.reduce((a, b) => a + b, 0);
+  }
+
+  // jäljellä oleva pistemäärä (301/501 - heitetyt)
+  remaining() {
+    return this.startingScore - this.totalScored();
+  }
+
+  // heittojen keskiarvo (reaaliaikainen aggregointi)
+  average() {
+    if (this.points.length === 0) return 0;
+    return Math.round((this.totalScored() / this.points.length) * 10) / 10;
+  }
+
+  reset() {
+    this.points = [];
+  }
 }
+
