@@ -1,35 +1,35 @@
 export class Player {
-  constructor(name, startingScore) {
-    this.name = name;
-    this.startingScore = startingScore;
-    this.points = []; 
-  }
+    constructor(name, startingScore) {
+        this.name = name;
+        this.startingScore = startingScore;
+        this.throws = [];   // kaikki pelaajan heitot tallennetaan tänne
+    }
 
-  addThrow(score) {
-    this.points.push(score);
-  }
+    // Lisää yksi pisteheitto
+    addThrow(score) {
+        this.throws.push(score);
+    }
 
-  undo() {
-    return this.points.pop();
-  }
+    // Peru viimeisin heitto (UNDO)
+    undo() {
+        return this.throws.pop();
+    }
 
-  // yhteenlasketut pisteet
-  totalScored() {
-    return this.points.reduce((a, b) => a + b, 0);
-  }
+    // Kuinka paljon pisteitä on yhteensä heitetty
+    totalScored() {
+        return this.throws.reduce((sum, val) => sum + val, 0);
+    }
 
-  // jäljellä oleva pistemäärä (301/501 - heitetyt)
-  remaining() {
-    return this.startingScore - this.totalScored();
-  }
+    // Kuinka paljon pisteitä on jäljellä (301/501 - heitetyt pisteet)
+    remaining() {
+        return this.startingScore - this.totalScored();
+    }
 
-  // heittojen keskiarvo (reaaliaikainen aggregointi)
-  average() {
-    if (this.points.length === 0) return 0;
-    return Math.round((this.totalScored() / this.points.length) * 10) / 10;
-  }
+    // Laskee keskiarvon pelaajan heitoista
+    average() {
+        if (this.throws.length === 0) return 0;
+        return Math.round((this.totalScored() / this.t
 
-  reset() {
     this.points = [];
   }
 }
