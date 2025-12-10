@@ -13,4 +13,4 @@ function scoreupdate() {
 
 }
 const dd = document.getElementById("add");
-form.addEventListener("click", scoreupdate);
+dd.addEventListener("click", scoreupdate);
