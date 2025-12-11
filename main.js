@@ -11,10 +11,14 @@ function scoreupdate() {
     d.innerHTML = players[s].scoreboard(301)[0];
     if (players[s].scoreboard(301)[0] == 0) {
         mes.innerHTML = players[s].name + " win!";
+        players[s].legs++;
+        for (i of players) {
+            i.archived();
+        }
     }
     s = s === 0 ? 1 : 0;
 
 
 }
 const dd = document.getElementById("add");
-form.addEventListener("click", scoreupdate);
+dd.addEventListener("click", scoreupdate);

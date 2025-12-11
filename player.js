@@ -3,6 +3,7 @@ export class player {
         this.points = [];
         this.name = name;
         this.archive = [];
+        this.legs = 0
 
     }
 
