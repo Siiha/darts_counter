@@ -2,6 +2,7 @@ export class player {
     constructor(name) {
         this.points = [];
         this.name = name;
+        this.archive = [];
 
     }
 
@@ -12,8 +13,8 @@ export class player {
         this.points.push(point);
     }
     undo() {
-  return this.points.pop();
-}
+        return this.points.pop();
+    }
 
     score() {
         let sum = 0;
@@ -23,16 +24,24 @@ export class player {
         return sum;
     }
     remaining(startingScore) {
-  return startingScore - this.score();
-}
+        return startingScore - this.score();
+    }
 
     avg() {
         return this.score() / this.points.length;
     }
     scoreboard(x) {
+        let a = Math.abs(this.score() - x)
+        if (a < 2 && a != 0) {
+            this.undo()
+        }
         return [x - this.score(), this.avg()];
     }
     changeName(name) {
         this.name = name;
-}
+    }
+    archived() {
+        this.archive.push(this.points);
+        this.points.length = 0;
+    }
 }
