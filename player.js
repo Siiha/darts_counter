@@ -2,6 +2,8 @@ export class player {
     constructor(name) {
         this.points = [];
         this.name = name;
+        this.archive = [];
+        this.legs = 0
 
     }
 
@@ -38,5 +40,9 @@ export class player {
     }
     changeName(name) {
         this.name = name;
+    }
+    archived() {
+        this.archive.push(this.points);
+        this.points.length = 0;
     }
 }
