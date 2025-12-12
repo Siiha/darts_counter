@@ -40,7 +40,6 @@ function scoreupdate() {
     }
     s = s === 0 ? 1 : 0;
 
-
 }
 const dd = document.getElementById("add");
 dd.addEventListener("click", scoreupdate);
