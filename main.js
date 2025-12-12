@@ -1,6 +1,6 @@
 import { player } from "./player.js";
 import { mode_301, mode_501 } from "./game_modes.js";
-const players = [new player("player_1"), new player("player_2")];
+const players = [];
 let s = 0;
 let m;
 const mes = document.getElementById("message");
@@ -8,19 +8,42 @@ const b301 = document.getElementById("301");
 const b501 = document.getElementById("501");
 const new_player = document.getElementById("new_player");
 const menu = document.getElementById("menu");
+const infos = document.getElementById("infos");
 const nt = () => {
     const p_name = document.createElement("input");
     p_name.id = "p_name";
     menu.appendChild(p_name);
     const p_add = document.createElement("button");
     p_add.innerText = "add";
+
     const new_p = () => {
-        players.push(player(p_name.value));
+        players.push(new player(p_name.value));
+        const sc = document.createElement('div');
+        sc.id = p_name.value;
+        infos.appendChild(sc);
+        const sh = document.createElement('h2');
+        sh.innerText = sc.id;
+        sc.appendChild(sh);
+        const sc_t = document.createElement('table');
+        const sc_h = document.createElement('thead');
+        sc_h.innerHTML = "<tr><th> Score</th><th> AVG</th></tr>"
+        const sc_b = document.createElement('tbody');
+        sc.appendChild(sc_t);
+        sc_t.appendChild(sc_h);
+        sc_t.appendChild(sc_b);
+        const sc_b_r = document.createElement('tr');
+        const sc_b_d = document.createElement('td');
+        sc_b_d.id = sc.id + "_score";
+        sc_b_r.appendChild(sc_b_d);
+        sc_b.appendChild(sc_b_r)
+        sc.className = "player";
+        console.log(players)
+        p_name.remove()
+        p_add.remove()
     }
     p_add.addEventListener("click", new_p);
     menu.appendChild(p_add);
 }
-
 
 new_player.addEventListener("click", nt);
 
