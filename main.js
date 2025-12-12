@@ -40,6 +40,9 @@ const nt = () => {
         console.log(players)
         p_name.remove()
         p_add.remove()
+        b301.disabled = false;
+        b501.disabled = false;
+
     }
     p_add.addEventListener("click", new_p);
     menu.appendChild(p_add);
