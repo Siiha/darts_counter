@@ -6,6 +6,24 @@ let m;
 const mes = document.getElementById("message");
 const b301 = document.getElementById("301");
 const b501 = document.getElementById("501");
+const new_player = document.getElementById("new_player");
+const menu = document.getElementById("menu");
+const nt = () => {
+    const p_name = document.createElement("input");
+    p_name.id = "p_name";
+    menu.appendChild(p_name);
+    const p_add = document.createElement("button");
+    p_add.innerText = "add";
+    const new_p = () => {
+        players.push(player(p_name.value));
+    }
+    p_add.addEventListener("click", new_p);
+    menu.appendChild(p_add);
+}
+
+
+new_player.addEventListener("click", nt);
+
 const v = (x) => {
     b301.remove();
     b501.remove();
