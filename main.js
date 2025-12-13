@@ -58,7 +58,7 @@ const nt = () => {
 
 new_player.addEventListener("click", nt);
 
-
+const start = document.getElementById('start');
 const v = (x) => {
     b301.remove();
     b501.remove();
@@ -66,8 +66,12 @@ const v = (x) => {
         const d = document.getElementById(i.name + "_score");
         d.innerHTML = x;
     }
-    dd.disabled = false;
+    start.disabled = false
 }
+start.addEventListener('click', () => {
+    dd.disabled = false;
+    new_player.remove();
+})
 b301.addEventListener("click", () => {
     m = 301;
     v(m);
