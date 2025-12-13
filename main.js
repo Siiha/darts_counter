@@ -3,7 +3,9 @@ import { mode_301, mode_501 } from "./game_modes.js";
 const players = [];
 let s = 0;
 let m;
+let leg = 1;
 const mes = document.getElementById("message");
+mes.innerHTML = "Leg " + leg;
 const b301 = document.getElementById("301");
 const b501 = document.getElementById("501");
 const new_player = document.getElementById("new_player");
@@ -74,15 +76,20 @@ function scoreupdate() {
     const d = document.getElementById(players[s].name + "_score");
     d.innerHTML = players[s].scoreboard(m)[0];
     if (players[s].scoreboard(m)[0] == 0) {
-        mes.innerHTML = players[s].name + " win!";
+        mes.innerHTML = players[s].name + " win leg " + leg + "!";
+        setTimeout(() => { mes.innerHTML = "Leg " + leg; }, 5000);
+
+        leg++
         players[s].legs++;
+
         for (let playe of players) {
             playe.archived();
             const d = document.getElementById(playe.name + "_score");
             d.innerHTML = m;
         }
     }
-    s = s === 0 ? 1 : 0;
+    s++;
+    if (s == players.length) { s = 0 }
 
 }
 const dd = document.getElementById("add");
