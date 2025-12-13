@@ -91,7 +91,7 @@ function scoreupdate() {
         setTimeout(() => { mes.innerHTML = "Leg " + leg; }, 3000);
 
         leg++
-        players[s].legs++;
+        players[turn].legs++;
 
         for (let playe of players) {
             playe.archived();
