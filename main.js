@@ -1,7 +1,7 @@
 import { player } from "./player.js";
 import { mode_301, mode_501 } from "./game_modes.js";
 const players = [];
-let s = 0;
+let turn = 0;
 let m;
 let leg = 1;
 const mes = document.getElementById("message");
@@ -80,14 +80,14 @@ b501.addEventListener("click", () => {
 
 function scoreupdate() {
     const a = document.getElementById("score");
-    players[s].add(parseInt(a.value));
-    const d = document.getElementById(players[s].name + "_score");
-    const avg = document.getElementById(players[s].name + "_avg");
-    d.innerHTML = players[s].scoreboard(m)[0];
-    avg.innerHTML = players[s].scoreboard(m)[1];
+    players[turn].add(parseInt(a.value));
+    const d = document.getElementById(players[turn].name + "_score");
+    const avg = document.getElementById(players[turn].name + "_avg");
+    d.innerHTML = players[turn].scoreboard(m)[0];
+    avg.innerHTML = players[turn].scoreboard(m)[1];
 
-    if (players[s].scoreboard(m)[0] == 0) {
-        mes.innerHTML = players[s].name + " win leg " + leg + "!";
+    if (players[turn].scoreboard(m)[0] == 0) {
+        mes.innerHTML = players[turn].name + " win leg " + leg + "!";
         setTimeout(() => { mes.innerHTML = "Leg " + leg; }, 3000);
 
         leg++
@@ -99,8 +99,8 @@ function scoreupdate() {
             d.innerHTML = m;
         }
     }
-    s++;
-    if (s == players.length) { s = 0 }
+    turn++;
+    if (turn == players.length) { turn = 0 }
 
 }
 dd.addEventListener("click", scoreupdate);
