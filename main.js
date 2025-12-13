@@ -8,9 +8,13 @@ const mes = document.getElementById("message");
 mes.innerHTML = "Leg " + leg;
 const b301 = document.getElementById("301");
 const b501 = document.getElementById("501");
+b301.disabled = true;
+b501.disabled = true;
 const new_player = document.getElementById("new_player");
 const menu = document.getElementById("menu");
 const infos = document.getElementById("infos");
+const dd = document.getElementById("add");
+dd.disabled = true;
 const nt = () => {
     const p_name = document.createElement("input");
     p_name.id = "p_name";
@@ -52,6 +56,7 @@ const nt = () => {
 
 new_player.addEventListener("click", nt);
 
+
 const v = (x) => {
     b301.remove();
     b501.remove();
@@ -59,6 +64,7 @@ const v = (x) => {
         const d = document.getElementById(i.name + "_score");
         d.innerHTML = x;
     }
+    dd.disabled = false;
 }
 b301.addEventListener("click", () => {
     m = 301;
@@ -77,7 +83,7 @@ function scoreupdate() {
     d.innerHTML = players[s].scoreboard(m)[0];
     if (players[s].scoreboard(m)[0] == 0) {
         mes.innerHTML = players[s].name + " win leg " + leg + "!";
-        setTimeout(() => { mes.innerHTML = "Leg " + leg; }, 5000);
+        setTimeout(() => { mes.innerHTML = "Leg " + leg; }, 3000);
 
         leg++
         players[s].legs++;
@@ -92,5 +98,4 @@ function scoreupdate() {
     if (s == players.length) { s = 0 }
 
 }
-const dd = document.getElementById("add");
 dd.addEventListener("click", scoreupdate);
