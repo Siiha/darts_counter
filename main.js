@@ -32,18 +32,20 @@ const nt = () => {
         sc.appendChild(sh);
         const sc_t = document.createElement('table');
         const sc_h = document.createElement('thead');
-        sc_h.innerHTML = "<tr><th> Score</th><th> AVG</th></tr>"
+        sc_h.innerHTML = "<tr><th> Score</th><th> AVG</th><th>win legs</th></tr>"
         const sc_b = document.createElement('tbody');
         sc.appendChild(sc_t);
         sc_t.appendChild(sc_h);
         sc_t.appendChild(sc_b);
         const sc_b_r = document.createElement('tr');
         const sc_b_d = document.createElement('td');
+        const sc_b_a = document.createElement('td');
         sc_b_d.id = sc.id + "_score";
+        sc_b_a.id = sc.id + "_avg";
         sc_b_r.appendChild(sc_b_d);
-        sc_b.appendChild(sc_b_r)
+        sc_b_r.appendChild(sc_b_a);
+        sc_b.appendChild(sc_b_r);
         sc.className = "player";
-        console.log(players)
         p_name.remove()
         p_add.remove()
         b301.disabled = false;
@@ -80,7 +82,10 @@ function scoreupdate() {
     const a = document.getElementById("score");
     players[s].add(parseInt(a.value));
     const d = document.getElementById(players[s].name + "_score");
+    const avg = document.getElementById(players[s].name + "_avg");
     d.innerHTML = players[s].scoreboard(m)[0];
+    avg.innerHTML = players[s].scoreboard(m)[1];
+
     if (players[s].scoreboard(m)[0] == 0) {
         mes.innerHTML = players[s].name + " win leg " + leg + "!";
         setTimeout(() => { mes.innerHTML = "Leg " + leg; }, 3000);
