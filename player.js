@@ -37,7 +37,7 @@ export class player {
 
     scoreboard(x) {
         let a = Math.abs(this.score() - x)
-        if (a < 2 && a != 0) {
+        if (a < 2 && a != 0 || x - this.score() < 0) {
             this.undo()
         }
         return [x - this.score(), this.avg()];
