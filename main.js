@@ -1,5 +1,6 @@
 import { player } from "./player.js";
 import special_messages from "./special_messages.json"
+with { type: "json" };
 
 
 // Pelaajien taulukko
@@ -42,12 +43,12 @@ legsSelect.addEventListener("change", (e) => {
     const value = e.target.value;
     const type = value.charAt(0); // 'b' = best of, 'f' = first to
     const target = parseInt(value.substring(1));
-    
+
     legsConfig = {
         type: type === 'b' ? 'best' : 'first',
         target: target
     };
-    
+
     console.log(`Legs-konfiguraatio: ${legsConfig.type === 'best' ? 'Best of' : 'First to'} ${legsConfig.target}`);
 });
 
@@ -56,12 +57,12 @@ setsSelect.addEventListener("change", (e) => {
     const value = e.target.value;
     const type = value.charAt(0); // 'b' = best of, 'f' = first to
     const target = parseInt(value.substring(1));
-    
+
     setsConfig = {
         type: type === 'b' ? 'best' : 'first',
         target: target
     };
-    
+
     console.log(`Sets-konfiguraatio: ${setsConfig.type === 'best' ? 'Best of' : 'First to'} ${setsConfig.target}`);
 });
 
@@ -71,7 +72,7 @@ const nt = () => {
     p_name.id = "p_name";
     p_name.placeholder = "Pelaajan nimi";
     menu.appendChild(p_name);
-    
+
     const p_add = document.createElement("button");
     p_add.innerText = "Lisää";
 
@@ -81,19 +82,19 @@ const nt = () => {
             alert("Syötä pelaajan nimi");
             return;
         }
-        
+
         // Luo uusi pelaaja-olio
         players.push(new player(p_name.value));
-        
+
         // Luo pelaajan näyttö-elementit
         const sc = document.createElement('div');
         sc.id = p_name.value;
         infos.appendChild(sc);
-        
+
         const sh = document.createElement('h2');
         sh.innerText = sc.id;
         sc.appendChild(sh);
-        
+
         // Luo taulukko pelaajan tiedoille
         const sc_t = document.createElement('table');
         const sc_h = document.createElement('thead');
@@ -102,7 +103,7 @@ const nt = () => {
         sc.appendChild(sc_t);
         sc_t.appendChild(sc_h);
         sc_t.appendChild(sc_b);
-        
+
         // Luo taulukon rivit
         const sc_b_r = document.createElement('tr');
         const sc_b_d = document.createElement('td');
@@ -118,18 +119,18 @@ const nt = () => {
         sc_b_r.appendChild(sc_b_l);
         sc_b_r.appendChild(sc_b_s);
         sc_b.appendChild(sc_b_r);
-        
+
         sc.className = "player";
-        
+
         // Poista input ja lisää-nappi
         p_name.remove()
         p_add.remove()
-        
+
         // Aktivoi pelimuoto-napit
         b301.disabled = false;
         b501.disabled = false;
     }
-    
+
     p_add.addEventListener("click", new_p);
     menu.appendChild(p_add);
 }
@@ -183,7 +184,7 @@ b501.addEventListener("click", () => {
 function highlightActivePlayer() {
     // Poista aktiivinen luokka kaikilta pelaajilta
     document.querySelectorAll('.player').forEach(p => p.classList.remove('active-player'));
-    
+
     // Lisää aktiivinen luokka nykyiselle pelaajalle
     const activePlayer = document.getElementById(players[turn].name);
     if (activePlayer) {
@@ -195,7 +196,7 @@ function highlightActivePlayer() {
 function checkLegWinner() {
     for (let player of players) {
         let wonLeg = false;
-        
+
         if (legsConfig.type === 'best') {
             // Best of X: pitää voittaa yli puolet
             const legsNeeded = Math.ceil(legsConfig.target / 2);
@@ -208,40 +209,40 @@ function checkLegWinner() {
                 wonLeg = true;
             }
         }
-        
+
         if (wonLeg) {
             // Pelaaja voitti setin!
             messager(`${player.name} voittaa setin ${set}!`);
             player.sets++;
-            
+
             // Päivitä sets-näyttö
             const s = document.getElementById(player.name + "_sets");
             s.innerHTML = player.sets;
-            
+
             // Nollaa kaikki legit
             for (let p of players) {
                 p.legs = 0;
                 const l = document.getElementById(p.name + "_legs");
                 l.innerHTML = "0";
             }
-            
+
             // Tarkista voittiko pelin kokonaan
             if (checkMatchWinner()) {
                 return true;
             }
-            
+
             // Aloita uusi setti
             set++;
             leg = 1;
             mes.innerHTML = "Set " + set + " - Leg " + leg;
-            
+
             // Nollaa pisteet uudelle setille
             for (let p of players) {
                 p.archived();
                 const d = document.getElementById(p.name + "_score");
                 d.innerHTML = m;
             }
-            
+
             return true;
         }
     }
@@ -252,7 +253,7 @@ function checkLegWinner() {
 function checkMatchWinner() {
     for (let player of players) {
         let won = false;
-        
+
         if (setsConfig.type === 'best') {
             // Best of X: pitää voittaa yli puolet
             const setsNeeded = Math.ceil(setsConfig.target / 2);
@@ -265,7 +266,7 @@ function checkMatchWinner() {
                 won = true;
             }
         }
-        
+
         if (won) {
             messager(`🏆 ${player.name} voittaa ottelun! 🏆`);
             dd.disabled = true;
@@ -278,8 +279,8 @@ function checkMatchWinner() {
 // Näytä viesti
 function messager(message) {
     mes.innerHTML = message;
-    setTimeout(() => { 
-        mes.innerHTML = "Set " + set + " - Leg " + leg; 
+    setTimeout(() => {
+        mes.innerHTML = "Set " + set + " - Leg " + leg;
     }, 3000);
 }
 
@@ -288,51 +289,51 @@ function scoreupdate() {
 
     const a = document.getElementById("score");
     const va = parseInt(a.value);
-    
+
     // Tarkista että pistemäärä on kelvollinen
     if (isNaN(va) || va < 0 || va > 180) {
         alert("Syötä kelvollinen pistemäärä (0-180)");
         return;
     }
-    
+
     // Näytä erikoisviesti jos on
-    if (va in special_messages) { 
-        messager(special_messages[va]) 
+    if (va in special_messages) {
+        messager(special_messages[va])
     }
-    
+
     // Lisää pisteet pelaajalle
     players[turn].add(va);
     const d = document.getElementById(players[turn].name + "_score");
     const avg = document.getElementById(players[turn].name + "_avg");
     d.innerHTML = players[turn].scoreboard(m)[0];
     avg.innerHTML = players[turn].scoreboard(m)[1];
-    
+
     // Tarkista voittiko pelaaja legin
     if (players[turn].scoreboard(m)[0] == 0) {
         messager(players[turn].name + " voittaa legin " + leg + "!");
-        
+
         players[turn].legs++;
         const l = document.getElementById(players[turn].name + "_legs");
         l.innerHTML = players[turn].legs;
-        
+
         // Tarkista voittiko setin
         if (checkLegWinner()) {
             // Jos peli ei ole ohi, jatka normaalisti
             if (!dd.disabled) {
                 turn++;
-                if (turn == players.length) { 
-                    turn = 0 
+                if (turn == players.length) {
+                    turn = 0
                 }
                 highlightActivePlayer();
                 a.value = "";
             }
             return;
         }
-        
+
         // Aloita uusi leg
         leg++;
         mes.innerHTML = "Set " + set + " - Leg " + leg;
-        
+
         // Nollaa pisteet uudelle legille
         for (let playe of players) {
             playe.archived();
@@ -340,13 +341,13 @@ function scoreupdate() {
             d.innerHTML = m;
         }
     }
-    
+
     // Vaihda vuoroa
     turn++;
-    if (turn == players.length) { 
-        turn = 0 
+    if (turn == players.length) {
+        turn = 0
     }
-    
+
     highlightActivePlayer();
     a.value = ""; // Tyhjennä syöttökenttä
 }
