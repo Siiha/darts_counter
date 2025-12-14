@@ -14,7 +14,7 @@ export class player {
         this.points.push(point);
     }
     undo() {
-        return this.points.pop();
+        this.points.pop();
     }
 
     score() {
