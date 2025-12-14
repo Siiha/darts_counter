@@ -1,7 +1,8 @@
 import { player } from "./player.js";
-import { mode_301, mode_501 } from "./game_modes.js";
+import special_messages from "./special_messages.json"
+with { type: "json" };
 const players = [];
-let s = 0;
+let turn = 0;
 let m;
 let leg = 1;
 const mes = document.getElementById("message");
@@ -40,10 +41,13 @@ const nt = () => {
         const sc_b_r = document.createElement('tr');
         const sc_b_d = document.createElement('td');
         const sc_b_a = document.createElement('td');
+        const sc_b_l = document.createElement('td');
+        sc_b_l.id = sc.id + "_legs";
         sc_b_d.id = sc.id + "_score";
         sc_b_a.id = sc.id + "_avg";
         sc_b_r.appendChild(sc_b_d);
         sc_b_r.appendChild(sc_b_a);
+        sc_b_r.appendChild(sc_b_l);
         sc_b.appendChild(sc_b_r);
         sc.className = "player";
         p_name.remove()
@@ -58,7 +62,7 @@ const nt = () => {
 
 new_player.addEventListener("click", nt);
 
-
+const start = document.getElementById('start');
 const v = (x) => {
     b301.remove();
     b501.remove();
@@ -66,8 +70,12 @@ const v = (x) => {
         const d = document.getElementById(i.name + "_score");
         d.innerHTML = x;
     }
-    dd.disabled = false;
+    start.disabled = false
 }
+start.addEventListener('click', () => {
+    dd.disabled = false;
+    new_player.remove();
+})
 b301.addEventListener("click", () => {
     m = 301;
     v(m);
@@ -78,29 +86,38 @@ b501.addEventListener("click", () => {
     v(m);
 })
 
-function scoreupdate() {
-    const a = document.getElementById("score");
-    players[s].add(parseInt(a.value));
-    const d = document.getElementById(players[s].name + "_score");
-    const avg = document.getElementById(players[s].name + "_avg");
-    d.innerHTML = players[s].scoreboard(m)[0];
-    avg.innerHTML = players[s].scoreboard(m)[1];
+function messager(message) {
+    mes.innerHTML = message;
+    setTimeout(() => { mes.innerHTML = "Leg " + leg; }, 3000);
 
-    if (players[s].scoreboard(m)[0] == 0) {
-        mes.innerHTML = players[s].name + " win leg " + leg + "!";
-        setTimeout(() => { mes.innerHTML = "Leg " + leg; }, 3000);
+}
+
+function scoreupdate() {
+
+    const a = document.getElementById("score");
+    const va = parseInt(a.value);
+    if (va in special_messages) { messager(special_messages[va]) }
+    players[turn].add(va);
+    const d = document.getElementById(players[turn].name + "_score");
+    const avg = document.getElementById(players[turn].name + "_avg");
+    d.innerHTML = players[turn].scoreboard(m)[0];
+    avg.innerHTML = players[turn].scoreboard(m)[1];
+    if (players[turn].scoreboard(m)[0] == 0) {
+        messager(players[turn].name + " win leg " + leg + "!");
+
 
         leg++
-        players[s].legs++;
-
+        players[turn].legs++;
+        const l = document.getElementById(players[turn].name + "_legs");
+        l.innerHTML = players[turn].legs;
         for (let playe of players) {
             playe.archived();
             const d = document.getElementById(playe.name + "_score");
             d.innerHTML = m;
         }
     }
-    s++;
-    if (s == players.length) { s = 0 }
+    turn++;
+    if (turn == players.length) { turn = 0 }
 
 }
 dd.addEventListener("click", scoreupdate);
