@@ -40,10 +40,13 @@ const nt = () => {
         const sc_b_r = document.createElement('tr');
         const sc_b_d = document.createElement('td');
         const sc_b_a = document.createElement('td');
+        const sc_b_l = document.createElement('td');
+        sc_b_l.id = sc.id + "_legs";
         sc_b_d.id = sc.id + "_score";
         sc_b_a.id = sc.id + "_avg";
         sc_b_r.appendChild(sc_b_d);
         sc_b_r.appendChild(sc_b_a);
+        sc_b_r.appendChild(sc_b_l);
         sc_b.appendChild(sc_b_r);
         sc.className = "player";
         p_name.remove()
@@ -96,7 +99,8 @@ function scoreupdate() {
 
         leg++
         players[turn].legs++;
-
+        const l = document.getElementById(players[turn].name + "_legs");
+        l.innerHTML = players[turn].legs;
         for (let playe of players) {
             playe.archived();
             const d = document.getElementById(playe.name + "_score");
