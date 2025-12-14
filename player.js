@@ -3,18 +3,18 @@ export class player {
         this.points = [];
         this.name = name;
         this.archive = [];
-        this.legs = 0;  // Voitetut legit
-        this.sets = 0;  // Voitetut setit
+        this.legs = 0; // Voitetut legit
+        this.sets = 0; // Voitetut setit
     }
 
     remove(id) {
         this.points.remove(id, 1);
     }
-    
+
     add(point) {
         this.points.push(point);
     }
-    
+
     undo() {
         this.points.pop();
     }
@@ -26,7 +26,7 @@ export class player {
         }
         return sum;
     }
-    
+
     remaining(startingScore) {
         return startingScore - this.score();
     }
@@ -34,19 +34,18 @@ export class player {
     avg() {
         return this.score() / this.points.length;
     }
-    
+
     scoreboard(x) {
-        let a = Math.abs(this.score() - x)
-        if (a < 2 && a != 0) {
+        if (this.score() - x < 0) {
             this.undo()
         }
         return [x - this.score(), this.avg()];
     }
-    
+
     changeName(name) {
         this.name = name;
     }
-    
+
     archived() {
         this.archive.push(this.points);
         this.points.length = 0;
