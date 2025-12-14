@@ -1,5 +1,6 @@
 import { player } from "./player.js";
-import { mode_301, mode_501 } from "./game_modes.js";
+import special_messages from "./special_messages.json"
+with { type: "json" };
 const players = [];
 let turn = 0;
 let m;
@@ -85,17 +86,25 @@ b501.addEventListener("click", () => {
     v(m);
 })
 
+function messager(message) {
+    mes.innerHTML = message;
+    setTimeout(() => { mes.innerHTML = "Leg " + leg; }, 3000);
+
+}
+
 function scoreupdate() {
+
     const a = document.getElementById("score");
-    players[turn].add(parseInt(a.value));
+    const va = parseInt(a.value);
+    if (va in special_messages) { messager(special_messages[va]) }
+    players[turn].add(va);
     const d = document.getElementById(players[turn].name + "_score");
     const avg = document.getElementById(players[turn].name + "_avg");
     d.innerHTML = players[turn].scoreboard(m)[0];
     avg.innerHTML = players[turn].scoreboard(m)[1];
-
     if (players[turn].scoreboard(m)[0] == 0) {
-        mes.innerHTML = players[turn].name + " win leg " + leg + "!";
-        setTimeout(() => { mes.innerHTML = "Leg " + leg; }, 3000);
+        messager(players[turn].name + " win leg " + leg + "!");
+
 
         leg++
         players[turn].legs++;
