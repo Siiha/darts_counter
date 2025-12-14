@@ -7,8 +7,13 @@
 </head>
 
 <body>
-    <h1> Darts counter</h1>
+    <h1>Darts counter</h1>
     <div id="menu">
+        <h2>Game Mode</h2>
+        <button id="301">301</button>
+        <button id="501">501</button>
+        <p class="legs-label">Legs</p>
+        <p class="sets-label">Sets</p>
         <h2> Game Mode</h2>
         <button id="301"> 301</button>
         <button id="501"> 501</button>
@@ -16,8 +21,8 @@
         <p>Legs</p>
         <br>
         <select name="legs" id="legs">
-            <optgroup label="Best of ">
-                <option value="b3">3 legs</option>
+            <optgroup label="Best of">
+                <option value="b3" selected>3 legs</option>
                 <option value="b5">5 legs</option>
                 <option value="b7">7 legs</option>
                 <option value="b9">9 legs</option>
@@ -28,7 +33,7 @@
                 <option value="b19">19 legs</option>
                 <option value="b21">21 legs</option>
             </optgroup>
-            <optgroup label="First to ">
+            <optgroup label="First to">
                 <option value="f1">1 leg</option>
                 <option value="f2">2 legs</option>
                 <option value="f3">3 legs</option>
@@ -52,19 +57,41 @@
                 <option value="f21">21 legs</option>
             </optgroup>  
         </select>
-        <button id="start">start</button>
+        <select name="sets" id="sets">
+            <optgroup label="Best of">
+                <option value="b3" selected>3 sets</option>
+                <option value="b5">5 sets</option>
+                <option value="b7">7 sets</option>
+                <option value="b9">9 sets</option>
+                <option value="b11">11 sets</option>
+                <option value="b13">13 sets</option>
+                <option value="b15">15 sets</option>
+            </optgroup>
+            <optgroup label="First to">
+                <option value="f1">1 set</option>
+                <option value="f2">2 sets</option>
+                <option value="f3">3 sets</option>
+                <option value="f4">4 sets</option>
+                <option value="f5">5 sets</option>
+                <option value="f6">6 sets</option>
+                <option value="f7">7 sets</option>
+                <option value="f8">8 sets</option>
+                <option value="f9">9 sets</option>
+                <option value="f10">10 sets</option>
+            </optgroup>  
+        </select>
+        <div id="players">
+            <button id="new_player">New player</button>
+        </div>
+        <button id="start" disabled>Start</button>
     </div>
-    <div id="infos" class="datas">
-    </div>
-
     <div id="infos" class="datas">
         <div id="message"></div>
     </div>
     <div id="form">
-        <label for="score"> Score:
-                    </label>
+        <label for="score">Score:</label>
         <input type="number" id="score" name="score" min="0" max="180" required>
-        <button id="add"> Add Score</button>
+        <button id="add">Add Score</button>
     </div>
 
 </body>
