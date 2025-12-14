@@ -285,6 +285,7 @@ function messager(message) {
 
 // Päivitä pisteet
 function scoreupdate() {
+
     const a = document.getElementById("score");
     const va = parseInt(a.value);
     
