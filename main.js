@@ -22,7 +22,7 @@ let setsConfig = { type: 'best', target: 3 }; // Oletus: best of 3
 const mes = document.getElementById("message");
 mes.innerHTML = "Set " + set + " - Leg " + leg;
 
-// Pelimuoto-nappien haku
+// Pelimuoto-nappien ja start-napin haku
 const b301 = document.getElementById("301");
 const b501 = document.getElementById("501");
 const start = document.getElementById('start');
