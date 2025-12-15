@@ -25,9 +25,10 @@ mes.innerHTML = "Set " + set + " - Leg " + leg;
 // Pelimuoto-nappien haku
 const b301 = document.getElementById("301");
 const b501 = document.getElementById("501");
+const start = document.getElementById('start');
 b301.disabled = true;
 b501.disabled = true;
-
+start.disabled = true;
 // Muiden elementtien haku
 const new_player = document.getElementById("new_player");
 const menu = document.getElementById("menu");
@@ -137,8 +138,8 @@ const nt = () => {
 
 new_player.addEventListener("click", nt);
 
-// Aloita-nappi ja pelimuodon valinta
-const start = document.getElementById('start');
+// Pelimuodon valinta
+
 const v = (x) => {
     b301.remove();
     b501.remove();
